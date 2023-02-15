@@ -8,9 +8,10 @@ class SessionsController < ApplicationController
         user = User.find_by(email: params[:session][:email].downcase)
         if user && user.authenticate(params[:session][:password])
             log_in(user)
+            flash[:notice] = 'Vous êtes maintenant connecté'
             redirect_to tasks_path
           else
-            flash.now[:danger] = 'Je n\'ai pas réussi à me connecter'
+            flash.now[:danger] = 'Adresse email ou mot de passe incorrect'
            render :new
           end
     end
