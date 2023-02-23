@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :login_required, only: [:new, :create]
-    before_action :correct_user, only: [:show, :edit, :destroy]
+    before_action :correct_user, only: [:show]
 
     def new
         @user = User.new
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         if @user.update(user_params)
           flash[:notice] = 'Compte mis à jour'
-          redirect_to user_path(@user.id)
+          redirect_to user_path(id: params[:id])
         else
           render :edit
         end
