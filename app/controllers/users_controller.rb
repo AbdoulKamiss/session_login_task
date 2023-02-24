@@ -10,8 +10,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
           log_in(@user)
-          flash[:notice] = 'Compte Enregistré'
-          redirect_to tasks_path
+          redirect_to tasks_path, notice: t('.created')
         else
           render :new
         end
@@ -28,8 +27,7 @@ class UsersController < ApplicationController
       def update
         @user = User.find(params[:id])
         if @user.update(user_params)
-          flash[:notice] = 'Compte mis à jour'
-          redirect_to edit_user_path(id: params[:id])
+          redirect_to edit_user_path(id: params[:id]), notice: t('.updated')
         else
           render :edit
         end
@@ -38,8 +36,7 @@ class UsersController < ApplicationController
       def destroy
         @user = User.find(params[:id])
         @user.destroy
-        flash[:notice] = 'Compte supprimé'
-        redirect_to new_session_path
+        redirect_to new_session_path, notice: t('.destroyed')
       end
     
       private
