@@ -1,5 +1,7 @@
-<h1>Account Details Page</h1>
-<p><strong>Name: </strong><%= @user.name %></p>
-<p><strong>Email adress: </strong><%= @user.email %></p>
-<%= link_to "Edit", edit_user_path(@user.id) %> |
-<%= link_to "Delete", user_path(current_user.id), method: :delete, data: { confirm: 'Voulez vous supprimez cet utilisateur ?'}%>
+<h1>アカウント詳細ページ</h1>
+
+<p>名前: <%= @user.name %></p>
+<p>メールアドレス: <%= @user.email %></p>
+
+<%= link_to "編集", edit_user_path(@user), id: "edit-user" %> | 
+<%= link_to "削除", @user, method: :delete, data: { confirm:  "本当に削除してもよろしいですか？" }, id: "destroy-user" %>

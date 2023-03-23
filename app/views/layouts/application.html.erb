@@ -4,25 +4,24 @@
     <title>CdpWebRailsSessionLoginTask</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <ul>
+      <% if logged_in? %>
+        <li><%= link_to "タスク一覧", tasks_path, id: "tasks-index" %></li>
+        <li><%= link_to "タスクを登録する", new_task_path, id: "new-task" %></li>
+        <li><%= link_to "アカウント", user_path(current_user.id), id: "my-account" %></li>
+        <li><%= link_to "ログアウト", session_path(current_user.id), method: :delete, id: "sign-out" %></li>
+      <% else %>
+        <li><%= link_to "アカウント登録", new_user_path, id: "sign-up" %></li>
+        <li><%= link_to "ログイン", new_session_path, id: "sign-in" %></li>
+      <% end %>
+    </ul>
     <p id="notice"><%= notice %></p>
-    <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
-    <% if logged_in? %>
-      <%= link_to "Task List", tasks_path %></br>
-      <%= link_to "Register a task", new_task_path %></br>
-      <%= link_to "Account", user_path(current_user.id) %></br>
-      <%= link_to "Logout", session_path(current_user.id), method: :delete %>
-    <% else %>
-      <%= link_to "Account registration", new_user_path %>
-      <%= link_to "Login", new_session_path %>
-    <% end %>
+    <p id="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
